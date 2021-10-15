@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+</head>
+<body>
+
+
+<h1>Representation of Finite Groups</h1>
+
+
+
+<p>
+This chapter provides an overview of general concepts in ordinary  representation theory of finite groups. For a more complete treatment, the reader is referred to the book by Sagan. As an appplication of representation theory to combinatorics, we present the proof of the well known result that the eigenvalues of a normal Cayley graph can be expressed in terms of the characters of the underlying group. Armed with the basic results in representation theory, we then focus on working with the symmetric groups, which are central to the recent work on intersecting families of permutations. This is related to the present thesis given the natural action of the symmetric group $S_{2n}$ on perfect matchings of size $n$.
+
+</p>
+
+
+
+<h2>1. Representation and $G$-modules</h2>
+
+
+The main idea of representation theory is to describe groups in terms of linear transformations, i.e. representing groups by how they act on vector spaces. Consequently, some problems about groups (and hence Cayley graphs and other combinatorial objects based on groups) can be investigated via methods in linear algebra. For our purpose, we will focus on {\em ordinary} representation of finite groups, where the asociated vector spaces are over the complex field $\mathbb{C}$.
+
+
+Throughout, let $G$ be a finite group and $V$ be a finite dimensional vector space over $\mathbb{C}$. Let $GL(V)$ be the {\em general linear group} of $V$ consisting of all the invertible linear maps $A: V \rightarrow V$.
+
+
+
+\begin{definition}[Group Representation]
+	A {\bf representation} of $G$ over $V$ is a homomorphism $\rho: G \rightarrow GL(V)$.
+\end{definition}
+
+In other words, for any element $g \in G$, we have an invertible linear map $\rho(g): V \rightarrow V$ such that $\rho(gh) = \rho(g) \rho(h)$ for all $g, h \in G$, and $\rho(1_G) = 1_V$, where $1_G$ and $1_V$ are identities in $G$ and $V$ respectively.
+
+We denote a representation by the pair $(\rho, V)$. It is often convenient to view a representation by regarding the vector space $V$ as a {\bf $G$-module}. We think of a representation as an action of $G$ on $V$ by writing $\rho(g)v$ simply as $g \cdot v$ or just $gv$, where
+\begin{itemize}
+	\item[(i)] $gv \in V$,
+	\item[(ii)] $g(cv+dw) = c(gv)+d(gw)$,
+	\item[(iii)] $(gh)v = g(hv)$,
+	\item[(iv)] $1_G v = v$,
+\end{itemize}
+for all $g, h \in G$, $v, w \in V$, and scalars $c, d \in \mathbb{C}$.
+
+Let $(\rho, V)$ be a representation of $G$ over $V$. If the dimension of $V$ is $d$, then $GL(V)$ is isomorphic to $GL_d$ the group of all invertible $n \times n$ matrices over $\mathbb{C}$. The parameter $d$ is called the {\bf dimension} or {\bf degree} of the representation, which we denote by $d_{\rho}$.
+
+Two representations $(\rho, V)$ and $(\sigma, W)$ of the same group $G$ are {\em equivalent}, denoted by $\rho \sim \sigma$, if there exists a linear bijectoon $J: V \rightarrow W$ such that $J \rho(g) = \sigma(g) J$ for all $g \in G$.
+
+
+In the case that the vector space $V$ is endowed with a scalar product $\vt{}{}$, we can define the notion of a {\em unitary representation}.
+
+\begin{definition}[Unitary representations]
+A representation $(\rho, V)$ is {\bf unitary} if $V$ can be endowed with a scalar product $\vt{}{}$ such that $\vt{\rho(g)v}{\rho(g)w} = \vt{v}{w}$ for all $g \in G$ and $v, w \in V$, i.e. $\rho$ preserves the scalar product. Equivalently, $(\rho, V)$ is unitary if $\rho(g)$ is a unitary matrix for all $g \in G$, i.e. $\rho(g)\rho(g)^* = I$, where $I$ is the identity matrix, and $\rho(g)^*$ is the conjugate transpose of $\rho(g)$.
+\end{definition}
+
+It turns out that every representation is equivalent to a unitary representation. Henceforth, we shall assume that every representation $(\rho, V)$ is unitary. This implies that for all $g \in G$,
+\[ \rho(g^{-1}) = \rho(g)^{-1} = \rho(g)^*. \]
+
+
+We now look at some examples of group representations.
+
+\begin{example}[Left regular representation]
+	Let $G$ be a finite group. Let $L(G) = \{f: G \rightarrow \mathbb{C}\}$ denote the vector space of all complex-valued functions on $G$ endowed with the scalar product
+	\begin{eqnarray}
+	\vt{f_1}{f_2} & = & \sum_{g \in G} f_{1}(g)\overline{f_{2}(g)} \label{scalar_01}
+	\end{eqnarray}
+for all $f_1$, $f_2 \in L(G)$. The {\bf left regular representation} $(\lambda, L(G))$ is defined by
+\[ [\lambda(g)]f(h) = f(g^{-1}h)\]
+for all $g,h \in G$, and $f \in L(G)$. Clearly, $\lambda$ is unitary with respect to the scalar product in (\ref{scalar_01}).
+
+Let $G=\{g_1, \ldots, g_n\}$. Consider the $G$-module
+\[ \mathbb{C}[G] = \left\{ \sum_{i=1}^{n} c_i g_{i}: c_i \in \mathbb{C} \right\}, \]
+which is called the {\bf group algebra} of $G$, where the action of $G$ on $\mathbb{C}[G]$ is given by the left multiplication on group elements extended linearly:
+\[ g \cdot  \left(\sum_{i=1}^{n} c_i g_{i} \right) = \sum_{i=1}^{n} c_i gg_{i}.\]
+This representation is equivalent to $(\lambda, L(G))$ via the following bijection (extended linearly):
+\[ J:g  \mapsto {\bf 1}_{g}, \]
+where ${\bf 1}_{g} \in L(G)$ denotes the indicator function where ${\bf 1}_{g}(x) = 1$ if $x = g$ and $0$ otherwise. Indeed, we have
+\begin{eqnarray*}
+\lambda(g)\left[J \left(\sum c_ig_i\right) (x) \right]& = &  \lambda(g) \sum c_i J(g_i) (x)\\
+& = & \lambda(g) \sum c_i {\bf 1}_{g_i} (x) \\
+& = & \sum c_i \lambda(g) {\bf 1}_{g_i}(x)\\
+& = & \sum c_i {\bf 1}_{g_i}(g^{-1} x)  \\
+& = & \sum c_i {\bf 1}_{gg_i}(x) \\
+& = & \sum c_i J(gg_i) (x)  \\
+& = & J \left[ \sum c_i gg_i \right](x)\\
+& = & J \left[g \cdot \sum c_i g_i\right] (x).
+\end{eqnarray*}
+
+
+
+
+
+
+\end{example}
+
+
+
+
+\section{Complete reducibility, Schur's Lemma}
+
+\begin{definition}[$G$-invariant subspace]
+	Let $V$ be a $G-module$. A subspace $W$ of $V$ is said to be a $G$-invariant subspace if $\forall w\in W, g\in G$, we have that $gw\in W$.\\
+	We say $W$ is a submodule.
+\end{definition}
+
+\begin{definition}[Irreducible representation]
+	A non-zero $G-module$ $V$ is said to be irreducible if it only contains the trivial submodules. Otherwise, $V$ is reducible.
+\end{definition}
+
+The next theorem tells us that we are able to decompose a $G-module$ into the direct sum of irreducible submodules.
+
+\begin{theorem}[Maschke's Theorem]
+	Let $G$ be a finite group and let $V$ be a non-zero G-module. Then\\
+	\[\ V=\bigoplus_{i=1}^kW^{(i)}\]\\
+	where each $W^{(i)}$ denotes an irreducible submodule of $V$.
+\end{theorem}
+
+\begin{definition}[G-homomorphism]
+	Let $V$ and $W$ be $G-modules$. Then a $G-homomorphism$ is a linear transformation $\theta: V \rightarrow W$ such that $\theta(gv)=g\theta(v)$\\
+	for all $g\in G$ and $v\in V$.
+\end{definition}
+
+In terms of matrix representation, take $T$ to be the matrix of $\theta$ in the two bases for $V$ and $W$, and let $X(g)$, $Y(g)$ be the matrix representation of $V$ and $W$ respectively. Then the $G-homomorphism$ property becomes $TX(g)v=Y(g)Tv$.\\
+Since this must hold for all $v\in V$ we must have that $TX(g)=Y(g)T$ for all $g\in G$.
+If $\theta$ is bijective, then it is a $G-isomorphism$ and we say that $V$ and $W$ are $G-isomorphic$, and write $V\cong W$. Correspondingly, T is invertible and we get $Y(g)=TX(g)T^{-1}$.
+
+\begin{theorem}[Schur's Lemma]
+	Let $\rho$ and $\psi$ be irreducible representation of $V$ and $W$ respectively. Suppose that $\theta: V \rightarrow W$ is a $G-homomorphism$. Then, either\\
+	\begin{itemize}
+		\item $\theta$ is a $G-isomorphism$,or
+		\item $\theta$ is the zero map.
+	\end{itemize}
+\end{theorem}
+
+
+
+</body>
+</html>
